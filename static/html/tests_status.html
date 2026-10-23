@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#f4f6fb">
+    <meta name="description" content="Monitor and manage Robot Framework processes.">
+    <title>Robot processes · Test workspace</title>
+    <link rel="stylesheet" href="/static/style/style.css">
+    <script src="/static/js/theme.js" defer></script>
+    <script src="/static/js/connection.js" defer></script>
+    <script src="/static/js/tests_status.js" defer></script>
+  </head>
+  <body>
+    <div class="app-shell">
+      <header class="topbar">
+        <a class="brand" href="/" aria-label="Test workspace home">
+          <span class="brand-mark" aria-hidden="true">T</span>
+          <span>Test workspace</span>
+        </a>
+        <nav class="primary-nav" aria-label="Main navigation">
+          <a href="/">Test browser</a>
+          <a href="/tests-status" aria-current="page">Processes</a>
+          <a href="/test-reports">Reports</a>
+        </nav>
+        <div class="topbar-actions">
+          <span class="connection is-connected" id="connection-status" role="status">
+            <span class="status-dot" aria-hidden="true"></span>
+            <span id="connection-label">Connected</span>
+          </span>
+          <button class="icon-button" id="theme-toggle" type="button" aria-label="Switch to dark theme">
+            <svg class="theme-icon" viewBox="0 0 24 24" aria-hidden="true">
+              <circle cx="12" cy="12" r="4"></circle>
+              <path d="M12 2v2m0 16v2M4.93 4.93l1.42 1.42m11.3 11.3 1.42 1.42M2 12h2m16 0h2M4.93 19.07l1.42-1.42m11.3-11.3 1.42 1.42"></path>
+            </svg>
+          </button>
+        </div>
+      </header>
+      <main class="management-main">
+        <div class="management-heading">
+          <div>
+            <p class="eyebrow">PROCESS CONTROL</p>
+            <h1>Robot processes</h1>
+            <p>Monitor each run, inspect its saved console output, and stop or remove process history.</p>
+          </div>
+        </div>
+        <section class="management-toolbar" aria-label="Bulk process actions">
+          <span id="process-count">Loading process history…</span>
+          <div class="management-toolbar-actions">
+            <button class="management-button" id="refresh-processes" type="button">Refresh</button>
+            <button class="management-button is-danger" id="stop-clear-all" type="button">Kill all &amp; clear history</button>
+          </div>
+        </section>
+        <p class="management-message" id="process-message" role="status" aria-live="polite"></p>
+        <div class="management-cards" id="process-list" aria-live="polite"></div>
+      </main>
+      <footer class="footer">
+        <span>Test workspace</span>
+        <span class="footer-divider" aria-hidden="true"></span>
+        <a href="/test-reports">Manage reports</a>
+      </footer>
+    </div>
+  </body>
+</html>

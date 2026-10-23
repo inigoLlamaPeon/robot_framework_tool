@@ -1,0 +1,8 @@
+{
+    "ip_address": "localhost",
+    "port": 8080,
+    "report_path": "reports",
+    "log_path": "logs",
+    "test_path": "test",
+    "sqlite_db_path": "database/app.sqlite3"
+}

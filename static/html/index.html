@@ -1,0 +1,205 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#f4f6fb">
+    <meta name="description" content="Browse the directories in your test workspace.">
+    <title>Test workspace</title>
+    <link rel="stylesheet" href="/static/style/style.css">
+    <script src="/static/js/theme.js" defer></script>
+    <script src="/static/js/connection.js" defer></script>
+    <script src="/static/js/app.js" defer></script>
+  </head>
+  <body>
+    <div class="app-shell">
+      <header class="topbar">
+        <a class="brand" href="/" aria-label="Test workspace home">
+          <span class="brand-mark" aria-hidden="true">T</span>
+          <span>Test workspace</span>
+        </a>
+        <nav class="primary-nav" aria-label="Main navigation">
+          <a href="/" aria-current="page">Test browser</a>
+          <a href="/tests-status">Processes</a>
+          <a href="/test-reports">Reports</a>
+        </nav>
+        <div class="topbar-actions">
+          <span class="connection is-connected" id="connection-status" role="status">
+            <span class="status-dot" aria-hidden="true"></span>
+            <span id="connection-label">Connected</span>
+          </span>
+          <button class="icon-button" id="theme-toggle" type="button" aria-label="Switch to dark theme">
+            <svg class="theme-icon" viewBox="0 0 24 24" aria-hidden="true">
+              <circle cx="12" cy="12" r="4"></circle>
+              <path d="M12 2v2m0 16v2M4.93 4.93l1.42 1.42m11.3 11.3 1.42 1.42M2 12h2m16 0h2M4.93 19.07l1.42-1.42m11.3-11.3 1.42-1.42"></path>
+            </svg>
+          </button>
+        </div>
+      </header>
+
+      <main>
+        <section class="hero" aria-labelledby="page-title">
+          <div class="hero-copy">
+            <p class="eyebrow"><span class="eyebrow-line"></span> WORKSPACE OVERVIEW</p>
+            <h1 id="page-title">Your tests,<br><span>within reach.</span></h1>
+            <p class="hero-description">Browse the directories in your test workspace. Pick a section to get started.</p>
+            <button class="refresh-button" id="refresh-button" type="button">
+              <svg viewBox="0 0 20 20" aria-hidden="true">
+                <path d="M16.5 10a6.5 6.5 0 0 1-11.1 4.6M3.5 10a6.5 6.5 0 0 1 11.1-4.6"></path>
+                <path d="M3.5 14.5v-3.8h3.8m9.2-5.2v3.8h-3.8"></path>
+              </svg>
+              <span>Refresh directories</span>
+            </button>
+            <p class="refresh-feedback" id="refresh-feedback" aria-live="polite"></p>
+          </div>
+          <div class="hero-art" aria-hidden="true">
+            <div class="orb orb-back"></div>
+            <div class="orb orb-front"></div>
+            <div class="art-card">
+              <div class="art-card-top"><span></span><span></span><span></span></div>
+              <div class="art-row"><i></i><b></b></div>
+              <div class="art-row short"><i></i><b></b></div>
+              <div class="art-row"><i></i><b></b></div>
+              <div class="art-row medium"><i></i><b></b></div>
+              <div class="art-check">✓</div>
+            </div>
+          </div>
+        </section>
+
+        <section class="workspace-section" aria-labelledby="directories-title">
+          <div class="section-heading">
+            <div>
+              <p class="eyebrow">TEST DIRECTORY</p>
+              <h2 id="directories-title">Browse sections</h2>
+            </div>
+            <span class="directory-count" id="directory-count">Loading…</span>
+          </div>
+          <nav class="directory-grid" id="directory-grid" aria-label="Test directories" aria-live="polite" aria-busy="true">
+            <div class="loading-card">
+              <span class="loading-spinner" aria-hidden="true"></span>
+              <span>Finding your directories…</span>
+            </div>
+          </nav>
+          <section class="file-browser" id="file-browser" aria-labelledby="section-title" hidden>
+            <div class="file-browser-heading">
+              <div>
+                <button class="back-button" id="back-button" type="button">← All sections</button>
+                <h3 id="section-title"></h3>
+                <p class="file-browser-summary" id="file-browser-summary"></p>
+              </div>
+            </div>
+            <div class="table-scroll">
+              <table class="test-table">
+                <thead>
+                  <tr>
+                    <th scope="col">Robot files / test cases</th>
+                    <th scope="col">Select</th>
+                    <th scope="col">Details</th>
+                  </tr>
+                </thead>
+                <tbody id="test-table-body"></tbody>
+              </table>
+            </div>
+            <p class="table-message" id="table-message" role="status" aria-live="polite"></p>
+            <section class="tags-editor" aria-labelledby="tags-title">
+              <div class="variables-heading">
+                <div>
+                  <p class="eyebrow">TEST FILTERS</p>
+                  <h3 id="tags-title">Tags</h3>
+                  <p class="file-browser-summary">Drag each unique tag into Include or Exclude. Drag it back to Available tags to clear it.</p>
+                </div>
+              </div>
+              <div class="tag-board" id="tag-board" aria-busy="true">
+                <div class="tag-zone available-zone" id="available-tags" data-tag-zone="available">
+                  <h4>Available tags</h4>
+                  <div class="tag-list" id="available-tag-list"></div>
+                </div>
+                <div class="tag-zone include-zone" id="include-tags" data-tag-zone="include">
+                  <h4>Include</h4>
+                  <div class="tag-list" id="include-tag-list"></div>
+                </div>
+                <div class="tag-zone exclude-zone" id="exclude-tags" data-tag-zone="exclude">
+                  <h4>Exclude</h4>
+                  <div class="tag-list" id="exclude-tag-list"></div>
+                </div>
+              </div>
+              <p class="variables-status" id="tag-status" role="status" aria-live="polite"></p>
+            </section>
+            <section class="variables-editor" aria-labelledby="variables-title">
+              <div class="variables-heading">
+                <div>
+                  <p class="eyebrow">SHARED CONFIGURATION</p>
+                  <h3 id="variables-title">Predefined Variables</h3>
+                  <p class="file-browser-summary">Edit values in this section’s common.resource file.</p>
+                </div>
+                <button class="save-button" id="save-variables" type="button" disabled>Save variables</button>
+              </div>
+              <div class="variables-list" id="variables-list" aria-live="polite">
+                <p class="variables-status" id="variables-status">Loading variables…</p>
+              </div>
+            </section>
+            <section class="undefined-variables-editor" aria-labelledby="undefined-variables-title">
+              <div class="variables-heading">
+                <div>
+                  <p class="eyebrow">ROBOT FRAMEWORK ARGUMENTS</p>
+                  <h3 id="undefined-variables-title">Undefined Variables</h3>
+                  <p class="file-browser-summary">Choose values for variables used by the selected tests.</p>
+                </div>
+              </div>
+              <div class="undefined-variables-list" id="undefined-variables-list" aria-live="polite">
+                <p class="variables-status" id="undefined-variables-status">Loading undefined variables…</p>
+              </div>
+            </section>
+            <section class="run-tests-editor" aria-labelledby="run-tests-title">
+              <div class="variables-heading">
+                <div>
+                  <p class="eyebrow">READY WHEN YOU ARE</p>
+                  <h3 id="run-tests-title">Run selected tests</h3>
+                  <p class="file-browser-summary">Choose the tests above, then start the run. Reports are saved in a named folder under reports/.</p>
+                </div>
+              </div>
+              <div class="run-tests-controls">
+                <label for="run-report-name">Report name <span>(optional)</span></label>
+                <input id="run-report-name" type="text" maxlength="200" autocomplete="off" placeholder="Automatic name if left blank">
+                <button class="save-button run-tests-button" id="run-tests-button" type="button" disabled>
+                  Run selected tests
+                </button>
+              </div>
+              <p class="variables-status run-status" id="run-status" role="status" aria-live="polite"></p>
+              <div class="run-artifact-links" id="run-artifact-links" hidden>
+                <a class="run-report-link" id="run-report-link" target="_blank" rel="noopener">Open report</a>
+                <a class="run-report-link" id="run-log-link" target="_blank" rel="noopener">Open log</a>
+                <a class="run-report-link" id="run-output-link" target="_blank" rel="noopener">Open output.xml</a>
+              </div>
+              <section class="run-output-section" aria-labelledby="run-output-title">
+                <h4 id="run-output-title">Command output</h4>
+                <pre class="run-output" id="run-output" role="log" aria-live="polite">Robot Framework output will appear here when a run starts.</pre>
+              </section>
+              <details class="robot-command-details">
+                <summary>Command line options</summary>
+                <p class="file-browser-summary">For users who prefer to run Robot Framework in a terminal.</p>
+                <div class="robot-arguments">
+                  <button class="expand-button" id="generate-robot-arguments" type="button" disabled>
+                    Prepare command
+                  </button>
+                  <button class="expand-button" id="copy-robot-command" type="button" disabled>
+                    Copy command
+                  </button>
+                </div>
+                <p class="variables-status" id="undefined-variables-result" role="status" aria-live="polite"></p>
+                <pre class="robot-command-preview" id="robot-command-preview" hidden></pre>
+              </details>
+            </section>
+          </section>
+        </section>
+      </main>
+
+      <footer class="footer">
+        <span>Test workspace</span>
+        <span class="footer-divider" aria-hidden="true"></span>
+        <span>Live connection <span class="live-indicator" aria-hidden="true"></span></span>
+        <span class="footer-message" id="websocket-message" aria-live="polite">Waiting for server…</span>
+      </footer>
+    </div>
+  </body>
+</html>

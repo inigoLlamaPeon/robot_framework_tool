@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#f4f6fb">
+    <meta name="description" content="Browse, merge, download, and delete Robot Framework reports.">
+    <title>Robot reports · Test workspace</title>
+    <link rel="stylesheet" href="/static/style/style.css">
+    <script src="/static/js/theme.js" defer></script>
+    <script src="/static/js/connection.js" defer></script>
+    <script src="/static/js/test_reports.js" defer></script>
+  </head>
+  <body>
+    <div class="app-shell">
+      <header class="topbar">
+        <a class="brand" href="/" aria-label="Test workspace home">
+          <span class="brand-mark" aria-hidden="true">T</span>
+          <span>Test workspace</span>
+        </a>
+        <nav class="primary-nav" aria-label="Main navigation">
+          <a href="/">Test browser</a>
+          <a href="/tests-status">Processes</a>
+          <a href="/test-reports" aria-current="page">Reports</a>
+        </nav>
+        <div class="topbar-actions">
+          <span class="connection is-connected" id="connection-status" role="status">
+            <span class="status-dot" aria-hidden="true"></span>
+            <span id="connection-label">Connected</span>
+          </span>
+          <button class="icon-button" id="theme-toggle" type="button" aria-label="Switch to dark theme">
+            <svg class="theme-icon" viewBox="0 0 24 24" aria-hidden="true">
+              <circle cx="12" cy="12" r="4"></circle>
+              <path d="M12 2v2m0 16v2M4.93 4.93l1.42 1.42m11.3 11.3 1.42 1.42M2 12h2m16 0h2M4.93 19.07l1.42-1.42m11.3-11.3 1.42 1.42"></path>
+            </svg>
+          </button>
+        </div>
+      </header>
+      <main class="management-main">
+        <div class="management-heading">
+          <div>
+            <p class="eyebrow">REPORT LIBRARY</p>
+            <h1>Robot reports</h1>
+            <p>Open run reports, merge output files, download report folders, or remove reports you no longer need.</p>
+          </div>
+        </div>
+        <section class="management-toolbar" aria-label="Selected report actions">
+          <span id="report-count">Loading reports…</span>
+          <div class="management-toolbar-actions">
+            <input class="merge-name-input" id="merge-name" type="text" maxlength="100" placeholder="Name for merged report" aria-label="Name for merged report">
+            <button class="management-button" id="merge-reports" type="button" disabled>Merge selected</button>
+            <button class="management-button is-primary" id="download-reports" type="button" disabled>Download selected ZIP</button>
+            <button class="management-button" id="refresh-reports" type="button">Refresh</button>
+          </div>
+        </section>
+        <p class="management-message" id="report-message" role="status" aria-live="polite"></p>
+        <div class="management-cards" id="report-list" aria-live="polite"></div>
+      </main>
+      <footer class="footer">
+        <span>Test workspace</span>
+        <span class="footer-divider" aria-hidden="true"></span>
+        <a href="/tests-status">Manage processes</a>
+      </footer>
+    </div>
+  </body>
+</html>
